@@ -25,4 +25,30 @@ impl Display {
     pub fn get_display_buffer(&self) -> &[u8] {
         &self.screen
     }
+
+    
+    pub fn draw_byte_bool(&mut self, byte: u8, x: u8, y: u8) -> bool {
+        let mut erased = false;
+        let mut coord_x = x as usize;
+        let mut coord_y = y as usize;
+        let mut b = byte;
+        
+        for _ in 0..8 {
+            coord_x %= WIDTH;
+            coord_y %= HEIGHT;
+            let index = Display::get_index_from_coords(coord_x, coord_y);
+            let bit = (b & 0b1000_0000) >> 7;
+            let prev_value = self.screen[index];
+            self.screen[index] ^= bit;
+
+            if prev_value == 1 && self.screen[index] == 0 {
+                erased = true;
+            }
+
+            coord_x += 1;
+            b <<= 1;
+        }
+
+        erased
+    }
 }

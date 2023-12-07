@@ -1,9 +1,9 @@
-struct Ram{
+pub struct Ram{
     memory: [u8; 4096]
 }
 
 impl Ram{
-    fn new() -> Self{
+    pub fn new() -> Self{
         let mut ram = Ram{memory: [0; 4096]};
 
         ram
