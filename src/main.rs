@@ -43,7 +43,7 @@ fn get_chip8_keycode_for(key: Option<Key>) -> Option<u8> {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let file_name = match args.len() {
-        0 | 1 => "game/MAZE",
+        0 | 1 => "game/TETRIS",
         _ => args.get(1).unwrap(),
     };
     let mut file = File::open(file_name).unwrap();
